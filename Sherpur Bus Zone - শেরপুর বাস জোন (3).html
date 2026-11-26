@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sherpur Bus Zone | শেরপুর বাস জোন - অনলাইন বাস টিকিট বুকিং</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Hind Siliguri & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Hind Siliguri"', '"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', '"Hind Siliguri"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            },
+            navy: {
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#080d1a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-en {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    /* Print styles for E-Ticket */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printable-ticket, #printable-ticket * {
+        visibility: visible;
+      }
+      #printable-ticket {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none !important;
+        border: 2px solid #059669 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Announcement & WhatsApp Bar -->
+  <div class="bg-navy-950 text-slate-200 text-xs sm:text-sm py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 bg-brand-600/20 text-brand-400 border border-brand-500/30 px-2.5 py-0.5 rounded-full text-xs font-medium">
+          <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+          শেরপুর জেলা অনলাইন বাস কাউন্টার
+        </span>
+        <span class="hidden md:inline text-slate-400">| ঘরে বসেই পছন্দের সিট বুক করুন সহজেই</span>
+      </div>
+      <a href="https://wa.me/8801789934703?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20Sherpur%20Bus%20Zone%20%E0%A6%A5%E0%A7%87%E0%A6%95%E0%A7%87%20%E0%A6%AC%E0%A6%BE%E0%A6%B8%E0%A7%87%E0%A6%B0%20%E0%A6%9F%E0%A6%BF%E0%A6%95%E0%A6%BF%E0%A6%9F%20%E0%A6%B8%E0%A6%AE%E0%A7%8D%E0%A6%AA%E0%A6%B0%E0%A7%8D%E0%A6%95%E0%A7%87%20%E0%A6%9C%E0%A6%BE%E0%A6%A8%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%E0%A5%A4"
+         target="_blank" rel="noopener noreferrer"
+         class="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-medium transition">
+        <i class="fa-brands fa-whatsapp text-base"></i>
+        <span>হেল্পলাইন / বুকিং: <strong class="font-en">01789934703</strong></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Sticky Navbar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+      <!-- Brand Logo -->
+      <button onclick="switchTab('booking')" class="flex items-center gap-3 text-left group focus:outline-none">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-brand-600 to-navy-900 flex items-center justify-center text-white shadow-md shadow-brand-600/20 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-bus-simple text-xl sm:text-2xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-en font-extrabold text-lg sm:text-xl tracking-tight text-navy-900">Sherpur Bus Zone</span>
+          </div>
+          <p class="text-xs sm:text-sm font-semibold text-brand-700 -mt-0.5">শেরপুর বাস জোন</p>
+        </div>
+      </button>
+
+      <!-- Desktop & Mobile Navigation Tabs -->
+      <nav class="flex items-center gap-1.5 sm:gap-2 bg-slate-100 p-1 rounded-xl border border-slate-200/80">
+        <button id="nav-booking" onclick="switchTab('booking')"
+          class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 bg-white text-brand-700 shadow-sm">
+          <i class="fa-solid fa-ticket"></i>
+          <span>টিকিট বুকিং</span>
+        </button>
+        <button id="nav-mybookings" onclick="switchTab('mybookings')"
+          class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 text-slate-600 hover:text-navy-900">
+          <i class="fa-solid fa-receipt"></i>
+          <span>আমার টিকিট</span>
+          <span id="my-bookings-badge" class="hidden bg-brand-600 text-white text-[11px] font-en px-1.5 py-0.2 rounded-full">0</span>
+        </button>
+        <button id="nav-admin" onclick="switchTab('admin')"
+          class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 text-slate-600 hover:text-navy-900">
+          <i class="fa-solid fa-sliders"></i>
+          <span class="hidden sm:inline">অ্যাডমিন প্যানেল</span>
+          <span class="sm:hidden">অ্যাডমিন</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Toast Notification Banner -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-[calc(100%-2.5rem)] pointer-events-none"></div>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1">
+
+    <!-- ==================== VIEW 1: TICKET BOOKING ==================== -->
+    <section id="view-booking" class="block">
+      <!-- Hero Banner & Search Box -->
+      <div class="relative bg-gradient-to-br from-navy-950 via-navy-900 to-brand-900 text-white pt-8 pb-14 sm:pt-12 sm:pb-20 px-4 overflow-hidden">
+        <!-- Subtle decorative pattern -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#10b981 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 px-3 py-1 rounded-full text-xs sm:text-sm text-emerald-300 mb-3">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>শেরপুর থেকে দেশের প্রধান শহরগুলোর সেরা বাস সার্ভিস</span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
+              ঘরে বসেই বুক করুন <span class="text-emerald-400">শেরপুরের</span> সেরা বাসের পছন্দের সিট
+            </h1>
+            <p class="text-slate-300 text-sm sm:text-base mb-6">
+              শেরপুর থেকে ঢাকা, গাবতলী, কক্সবাজার, চট্টগ্রাম, সিলেট ও বরিশাল রুটের এসি, নন-এসি এবং স্লিপার কোচের টিকিট কাটুন কোনো ঝামেলা ছাড়াই।
+            </p>
+          </div>
+
+          <!-- Search Card -->
+          <div class="bg-white text-slate-900 rounded-2xl shadow-xl p-4 sm:p-6 border border-slate-200/80">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              <!-- From (Fixed / Default Sherpur) -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+                  <i class="fa-solid fa-circle-dot text-brand-600 mr-1"></i> যাত্রা শুরু (From)
+                </label>
+                <div class="relative">
+                  <input type="text" value="শেরপুর (Sherpur)" readonly
+                    class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3.5 py-3 text-sm sm:text-base font-semibold text-navy-900 cursor-not-allowed" />
+                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs bg-brand-100 text-brand-800 px-2 py-0.5 rounded-md font-medium">জেলা</span>
+                </div>
+              </div>
+
+              <!-- Destination Route -->
+              <div>
+                <label for="filter-destination" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+                  <i class="fa-solid fa-location-dot text-rose-500 mr-1"></i> গন্তব্য (To)
+                </label>
+                <select id="filter-destination" onchange="renderBusList()"
+                  class="w-full bg-white border border-slate-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 rounded-xl px-3.5 py-3 text-sm sm:text-base font-semibold text-navy-900 outline-none transition">
+                  <option value="ALL">সকল গন্তব্য (All Routes)</option>
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+
+              <!-- Journey Date -->
+              <div>
+                <label for="filter-date" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+                  <i class="fa-regular fa-calendar text-brand-600 mr-1"></i> যাত্রার তারিখ (Date)
+                </label>
+                <input type="date" id="filter-date" onchange="renderBusList()"
+                  class="w-full bg-white border border-slate-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 rounded-xl px-3.5 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-navy-900 outline-none transition font-en" />
+              </div>
+
+              <!-- Coach Type Filter -->
+              <div>
+                <label for="filter-coach" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+                  <i class="fa-solid fa-bus text-brand-600 mr-1"></i> কোচের ধরন (Coach)
+                </label>
+                <select id="filter-coach" onchange="renderBusList()"
+                  class="w-full bg-white border border-slate-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 rounded-xl px-3.5 py-3 text-sm sm:text-base font-semibold text-navy-900 outline-none transition">
+                  <option value="ALL">সব কোচ (AC / Non-AC / Sleeper)</option>
+                  <option value="Non-AC">নন-এসি (Non-AC)</option>
+                  <option value="AC">এসি (AC Business/Chair)</option>
+                  <option value="Sleeper">স্লিপার কোচ (Sleeper)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Quick Route Filter Chips -->
+            <div class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2">
+              <span class="text-xs font-semibold text-slate-500 mr-1">জনপ্রিয় রুট:</span>
+              <div id="quick-route-chips" class="flex flex-wrap gap-2">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Available Buses List Section -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 pb-16 relative z-20">
+        <!-- Results Header -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 px-4 sm:px-6 py-3.5 mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-lg bg-brand-50 text-brand-700 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-bus"></i>
+            </span>
+            <div>
+              <h2 class="text-base sm:text-lg font-bold text-navy-900" id="results-title">সকল রুটের বাসসমূহ</h2>
+              <p class="text-xs text-slate-500" id="results-subtitle">আপনার পছন্দের বাস নির্বাচন করে "সিট দেখুন" বাটনে ক্লিক করুন</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="bus-count-badge" class="bg-navy-900 text-white text-xs sm:text-sm font-semibold px-3 py-1 rounded-full">
+              ০টি বাস পাওয়া গেছে
+            </span>
+          </div>
+        </div>
+
+        <!-- Bus Cards Container -->
+        <div id="bus-list-container" class="space-y-4">
+          <!-- Bus Cards Rendered Here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: MY BOOKINGS ==================== -->
+    <section id="view-mybookings" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-navy-900">আমার বুকিং ও ই-টিকিট</h1>
+          <p class="text-sm text-slate-600 mt-1">আপনার বুক করা টিকিটগুলো এখান থেকে দেখতে, প্রিন্ট করতে বা হোয়াটসঅ্যাপে পাঠাতে পারবেন।</p>
+        </div>
+        <button onclick="switchTab('booking')" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2.5 rounded-xl text-sm transition flex items-center gap-2 shadow-sm">
+          <i class="fa-solid fa-plus"></i> নতুন টিকিট বুক করুন
+        </button>
+      </div>
+
+      <div id="my-bookings-list" class="space-y-4">
+        <!-- User Bookings Rendered Here -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: ADMIN PANEL ==================== -->
+    <section id="view-admin" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <!-- Admin Lock Screen -->
+      <div id="admin-lock-screen" class="max-w-md mx-auto bg-white rounded-2xl shadow-lg border border-slate-200 p-6 sm:p-8 text-center">
+        <div class="w-16 h-16 rounded-2xl bg-navy-900 text-emerald-400 flex items-center justify-center text-2xl mx-auto mb-4 shadow-md">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-bold text-navy-900 mb-1">অ্যাডমিন প্যানেল লগইন</h2>
+        <p class="text-sm text-slate-500 mb-5">নতুন বাস ও রুট যুক্ত বা আপডেট করতে পিন দিন।</p>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-5 text-xs text-amber-800">
+          <i class="fa-solid fa-circle-info mr-1"></i> ডিফল্ট অ্যাডমিন পিন: <strong class="font-en text-sm">1234</strong> (পরবর্তীতে পরিবর্তন করতে পারবেন)
+        </div>
+
+        <form onsubmit="unlockAdmin(event)" class="space-y-4">
+          <input type="password" id="admin-pin-input" maxlength="8" placeholder="পিন কোড লিখুন (যেমন: 1234)" required
+            class="w-full text-center tracking-widest font-en text-lg font-bold border border-slate-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 rounded-xl px-4 py-3 outline-none" />
+          <button type="submit" class="w-full bg-navy-900 hover:bg-navy-800 text-white font-semibold py-3 rounded-xl transition shadow-md">
+            অ্যাডমিন প্যানেল খুলুন
+          </button>
+        </form>
+      </div>
+
+      <!-- Admin Dashboard Content (Hidden until unlocked) -->
+      <div id="admin-dashboard" class="hidden space-y-8">
+        <!-- Admin Top Header -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full">Admin Mode</span>
+              <h1 class="text-xl sm:text-2xl font-bold text-navy-900">বাস ও রুট ম্যানেজমেন্ট</h1>
+            </div>
+            <p class="text-sm text-slate-600 mt-1">এখান থেকে নতুন রুট ও বাস যোগ করুন, ভাড়া বা সময় আপডেট করুন এবং যাত্রীদের বুকিং দেখুন।</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="openBusFormModal()" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2.5 rounded-xl text-sm transition flex items-center gap-2 shadow-sm">
+              <i class="fa-solid fa-plus"></i> নতুন বাস / রুট যোগ করুন
+            </button>
+            <button onclick="exportDataJSON()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-3.5 py-2.5 rounded-xl text-sm transition flex items-center gap-1.5" title="ডাটা ব্যাকআপ ডাউনলোড">
+              <i class="fa-solid fa-download"></i> ব্যাকআপ
+            </button>
+            <label class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-3.5 py-2.5 rounded-xl text-sm transition flex items-center gap-1.5 cursor-pointer" title="ব্যাকআপ ফাইল আপলোড">
+              <i class="fa-solid fa-upload"></i> রিস্টোর
+              <input type="file" accept=".json" onchange="importDataJSON(event)" class="hidden" />
+            </label>
+            <button onclick="lockAdmin()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold px-3.5 py-2.5 rounded-xl text-sm transition">
+              <i class="fa-solid fa-lock"></i> লক
+            </button>
+          </div>
+        </div>
+
+        <!-- Admin Quick Stats -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">মোট বাস সার্ভিস</p>
+            <p id="stat-total-buses" class="text-2xl sm:text-3xl font-extrabold text-navy-900 font-en mt-1">0</p>
+          </div>
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">সক্রিয় রুট সংখ্যা</p>
+            <p id="stat-total-routes" class="text-2xl sm:text-3xl font-extrabold text-brand-600 font-en mt-1">0</p>
+          </div>
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">মোট বুকিং সংখ্যা</p>
+            <p id="stat-total-bookings" class="text-2xl sm:text-3xl font-extrabold text-indigo-600 font-en mt-1">0</p>
+          </div>
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">মোট টিকিট বিক্রি (৳)</p>
+            <p id="stat-total-revenue" class="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-en mt-1">৳0</p>
+          </div>
+        </div>
+
+        <!-- Admin Tabs: Buses vs Customer Bookings -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="border-b border-slate-200 px-4 sm:px-6 pt-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex gap-4">
+              <button id="admin-subtab-buses" onclick="switchAdminSubtab('buses')" class="pb-3 border-b-2 border-brand-600 text-brand-700 font-bold text-sm sm:text-base">
+                বাস ও রুট তালিকা (<span id="admin-bus-tab-count">0</span>)
+              </button>
+              <button id="admin-subtab-bookings" onclick="switchAdminSubtab('bookings')" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-navy-900 font-bold text-sm sm:text-base">
+                যাত্রীদের বুকিং লিস্ট (<span id="admin-booking-tab-count">0</span>)
+              </button>
+            </div>
+            <button onclick="resetDemoData()" class="text-xs text-slate-400 hover:text-rose-600 pb-2 transition">
+              <i class="fa-solid fa-rotate-left mr-1"></i> ডিফল্ট ডাটা রিসেট
+            </button>
+          </div>
+
+          <!-- Subtab 1: Buses Table -->
+          <div id="admin-panel-buses" class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase">
+                  <th class="py-3.5 px-4">বাসের নাম ও কোচ</th>
+                  <th class="py-3.5 px-4">রুট (শেরপুর → গন্তব্য)</th>
+                  <th class="py-3.5 px-4">ছাড়ার সময়</th>
+                  <th class="py-3.5 px-4">ভাড়া (৳)</th>
+                  <th class="py-3.5 px-4">সিট লেআউট</th>
+                  <th class="py-3.5 px-4 text-right">অ্যাকশন</th>
+                </tr>
+              </thead>
+              <tbody id="admin-buses-tbody" class="divide-y divide-slate-100 text-sm">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Subtab 2: Bookings Table -->
+          <div id="admin-panel-bookings" class="hidden overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase">
+                  <th class="py-3.5 px-4">টিকিট আইডি</th>
+                  <th class="py-3.5 px-4">যাত্রীর তথ্য</th>
+                  <th class="py-3.5 px-4">বাস ও রুট</th>
+                  <th class="py-3.5 px-4">তারিখ ও সিট</th>
+                  <th class="py-3.5 px-4">মোট ভাড়া</th>
+                  <th class="py-3.5 px-4 text-right">অ্যাকশন</th>
+                </tr>
+              </thead>
+              <tbody id="admin-bookings-tbody" class="divide-y divide-slate-100 text-sm">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODAL 1: SEAT SELECTION & BOOKING ==================== -->
+  <div id="seat-modal" class="fixed inset-0 z-50 hidden bg-navy-950/70 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto max-h-[95vh] flex flex-col">
+      <!-- Modal Header -->
+      <div class="bg-navy-900 text-white px-5 py-4 flex items-center justify-between">
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 id="modal-bus-name" class="text-lg sm:text-xl font-bold">বাসের নাম</h3>
+            <span id="modal-coach-badge" class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">AC</span>
+          </div>
+          <p id="modal-route-info" class="text-xs sm:text-sm text-slate-300 mt-0.5">শেরপুর → ঢাকা | তারিখ: ...</p>
+        </div>
+        <button onclick="closeSeatModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-4 sm:p-6 overflow-y-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left: Interactive Bus Seat Layout -->
+        <div class="lg:col-span-6 bg-slate-50 rounded-2xl p-4 border border-slate-200">
+          <!-- Seat Legend -->
+          <div class="flex flex-wrap items-center justify-center gap-4 pb-3 mb-4 border-b border-slate-200 text-xs font-semibold">
+            <div class="flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-md bg-white border-2 border-slate-300 inline-block"></span>
+              <span>ফাঁকা (Available)</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-md bg-brand-600 border-2 border-brand-700 inline-block"></span>
+              <span>নির্বাচিত (Selected)</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-md bg-rose-100 border-2 border-rose-300 inline-block"></span>
+              <span>বুকড (Booked)</span>
+            </div>
+          </div>
+
+          <!-- Bus Front Cabin (Driver & Door) -->
+          <div class="max-w-[290px] mx-auto bg-white rounded-2xl border-2 border-slate-300 p-3.5 shadow-inner">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b-2 border-dashed border-slate-200">
+              <div class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-bold flex items-center gap-1">
+                <i class="fa-solid fa-door-open"></i> গেট (Door)
+              </div>
+              <div class="w-10 h-10 rounded-full bg-navy-900 text-white flex items-center justify-center text-sm shadow" title="ড্রাইভার">
+                <i class="fa-solid fa-dharmachakra"></i>
+              </div>
+            </div>
+
+            <!-- Dynamic Seat Grid -->
+            <div id="seat-grid-container" class="space-y-2.5">
+              <!-- Seats rendered via JS -->
+            </div>
+          </div>
+          <p class="text-center text-xs text-slate-500 mt-3">পছন্দের সিটে ক্লিক করে সিলেক্ট করুন (সর্বোচ্চ ৬টি সিট)</p>
+        </div>
+
+        <!-- Right: Passenger Details & Checkout -->
+        <div class="lg:col-span-6 flex flex-col justify-between space-y-4">
+          <div class="space-y-4">
+            <!-- Selected Seats Summary Box -->
+            <div class="bg-brand-50/70 border border-brand-200 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-brand-900 uppercase">নির্বাচিত সিটসমূহ:</span>
+                <span class="text-xs font-semibold text-brand-700">প্রতি সিট: <strong id="modal-unit-fare" class="font-en">৳0</strong></span>
+              </div>
+              <div id="selected-seats-badges" class="flex flex-wrap gap-1.5 min-h-[28px]">
+                <span class="text-xs text-slate-500 italic">এখনো কোনো সিট সিলেক্ট করা হয়নি</span>
+              </div>
+              <div class="mt-3 pt-3 border-t border-brand-200 flex items-center justify-between">
+                <span class="text-sm font-bold text-navy-900">সর্বমোট ভাড়া (Total Fare):</span>
+                <span id="modal-total-fare" class="text-xl font-extrabold text-brand-700 font-en">৳0</span>
+              </div>
+            </div>
+
+            <!-- Passenger Form -->
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">যাত্রীর পূর্ণ নাম <span class="text-rose-500">*</span></label>
+                <input type="text" id="passenger-name" placeholder="যেমন: মোঃ আরিফুল ইসলাম"
+                  class="w-full border border-slate-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 rounded-xl px-3.5 py-2.5 text-sm outline-none" />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">মোবাইল নম্বর <span class="text-rose-500">*</span></label>
+                  <input type="tel" id="passenger-phone" placeholder="01XXXXXXXXX"
+                    class="w-full border border-slate-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 rounded-xl px-3.5 py-2.5 text-sm font-en outline-none" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">লিঙ্গ (Gender)</label>
+                  <select id="passenger-gender"
+                    class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm outline-none bg-white">
+                    <option value="পুরুষ (Male)">পুরুষ (Male)</option>
+                    <option value="মহিলা (Female)">মহিলা (Female)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">বোর্ডিং পয়েন্ট (কোথা থেকে উঠবেন)</label>
+                <select id="passenger-boarding"
+                  class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm outline-none bg-white">
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Booking Action Buttons -->
+          <div class="pt-2 space-y-2.5">
+            <button onclick="confirmOnlineBooking()"
+              class="w-full bg-navy-900 hover:bg-navy-800 text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-md">
+              <i class="fa-solid fa-ticket text-emerald-400"></i>
+              <span>অনলাইনে কনফার্ম ও ই-টিকিট নিন</span>
+            </button>
+
+            <button onclick="bookViaWhatsApp()"
+              class="w-full bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-md">
+              <i class="fa-brands fa-whatsapp text-xl"></i>
+              <span>WhatsApp-এ বুকিং পাঠান (01789934703)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: DIGITAL E-TICKET VIEW ==================== -->
+  <div id="eticket-modal" class="fixed inset-0 z-50 hidden bg-navy-950/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden my-auto">
+      <!-- Printable Ticket Card -->
+      <div id="printable-ticket" class="bg-white">
+        <div class="bg-gradient-to-r from-navy-900 to-brand-800 text-white p-5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-bus-simple"></i>
+            </div>
+            <div>
+              <h3 class="font-en font-extrabold text-lg leading-tight">Sherpur Bus Zone</h3>
+              <p class="text-xs text-emerald-300">অফিসিয়াল ই-টিকিট (E-Ticket)</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[11px] uppercase tracking-wider text-slate-300 block">টিকিট আইডি</span>
+            <span id="ticket-id-display" class="font-en font-bold text-sm bg-white/15 px-2.5 py-0.5 rounded-md">SBZ-0000</span>
+          </div>
+        </div>
+
+        <div class="p-5 sm:p-6 space-y-4">
+          <div class="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5">
+            <span class="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-check text-emerald-600 text-base"></i> বুকিং স্ট্যাটাস: কনফার্মড
+            </span>
+            <span id="ticket-date-display" class="text-xs font-bold text-navy-900 font-en">2026-11-26</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-sm border-b border-dashed border-slate-300 pb-4">
+            <div>
+              <p class="text-xs text-slate-500">যাত্রীর নাম</p>
+              <p id="ticket-passenger-name" class="font-bold text-navy-900">-</p>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500">মোবাইল নম্বর</p>
+              <p id="ticket-passenger-phone" class="font-bold text-navy-900 font-en">-</p>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500">বাসের নাম</p>
+              <p id="ticket-bus-name" class="font-bold text-navy-900">-</p>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500">ছাড়ার সময়</p>
+              <p id="ticket-departure-time" class="font-bold text-brand-700">-</p>
+            </div>
+            <div class="col-span-2">
+              <p class="text-xs text-slate-500">রুট ও বোর্ডিং পয়েন্ট</p>
+              <p id="ticket-route-boarding" class="font-bold text-navy-900">-</p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+            <div>
+              <p class="text-xs text-slate-500">নির্বাচিত সিট নম্বর</p>
+              <p id="ticket-seats-display" class="font-en font-extrabold text-base text-navy-900">-</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-slate-500">মোট পরিশোধযোগ্য ভাড়া</p>
+              <p id="ticket-fare-display" class="font-en font-extrabold text-xl text-brand-700">৳0</p>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-500 pt-1">
+            <p>যাত্রার অন্তত ২০ মিনিট পূর্বে কাউন্টারে উপস্থিত থাকার জন্য অনুরোধ করা হলো।</p>
+            <p class="font-semibold text-navy-900 mt-1">হেল্পলাইন / WhatsApp: <span class="font-en">01789934703</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ticket Action Buttons (Hidden when printing) -->
+      <div class="no-print bg-slate-100 px-5 py-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+        <button onclick="window.print()" class="flex-1 bg-navy-900 hover:bg-navy-800 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-print"></i> প্রিন্ট / PDF সেভ
+        </button>
+        <a id="ticket-whatsapp-share" href="#" target="_blank" rel="noopener noreferrer"
+          class="flex-1 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp-এ পাঠান
+        </a>
+        <button onclick="closeEticketModal()" class="w-full sm:w-auto bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold py-2.5 px-4 rounded-xl text-sm transition">
+          বন্ধ করুন
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: ADMIN ADD / EDIT BUS ==================== -->
+  <div id="bus-form-modal" class="fixed inset-0 z-50 hidden bg-navy-950/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto">
+      <div class="bg-navy-900 text-white px-6 py-4 flex items-center justify-between">
+        <h3 id="bus-form-title" class="text-lg font-bold">নতুন বাস ও রুট যোগ করুন</h3>
+        <button onclick="closeBusFormModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form onsubmit="saveBusForm(event)" class="p-5 sm:p-6 space-y-4 max-h-[85vh] overflow-y-auto">
+        <input type="hidden" id="form-bus-id" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">বাসের নাম <span class="text-rose-500">*</span></label>
+            <input type="text" id="form-bus-name" required placeholder="যেমন: সোনার বাংলা পরিবহন"
+              class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">কোচের ধরন <span class="text-rose-500">*</span></label>
+            <select id="form-bus-coach" required
+              class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm outline-none bg-white">
+              <option value="Non-AC">নন-এসি (Non-AC)</option>
+              <option value="AC">এসি (AC Business/Chair)</option>
+              <option value="Sleeper">স্লিপার কোচ (Sleeper)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">গন্তব্য শহর / রুট <span class="text-rose-500">*</span></label>
+            <input type="text" id="form-bus-destination" list="destination-suggestions" required placeholder="যেমন: ঢাকা (মহাখালী) বা কক্সবাজার"
+              class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm outline-none" />
+            <datalist id="destination-suggestions">
+              <option value="ঢাকা (মহাখালী / উত্তরা)">
+              <option value="গাবতলী (ঢাকা)">
+              <option value="কক্সবাজার">
+              <option value="চট্টগ্রাম">
+              <option value="সিলেট">
+              <option value="বরিশাল">
+              <option value="রাজশাহী">
+              <option value="খুলনা">
+            </datalist>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">ছাড়ার সময় <span class="text-rose-500">*</span></label>
+            <input type="text" id="form-bus-time" required placeholder="যেমন: সকাল ০৮:৩০ / রাত ১০:৩০"
+              class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm outline-none" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">টিকিটের ভাড়া (টাকা ৳) <span class="text-rose-500">*</span></label>
+            <input type="number" id="form-bus-fare" required min="100" step="10" placeholder="যেমন: 550"
+              class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm font-en outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">সিট লেআউট ও সংখ্যা <span class="text-rose-500">*</span></label>
+            <select id="form-bus-layout" required
+              class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm outline-none bg-white">
+              <option value="2+2-36">2+2 স্ট্যান্ডার্ড (৩৬ সিট)</option>
+              <option value="2+2-40">2+2 রেগুলার (৪০ সিট)</option>
+              <option value="2+1-27">2+1 বিজনেস/স্লিপার (২৭ সিট)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">বোর্ডিং পয়েন্টসমূহ (কমা দিয়ে আলাদা করুন)</label>
+          <input type="text" id="form-bus-boarding" required value="অষ্টমীতলা নতুন বাস টার্মিনাল, শেরপুর থানা মোড়, নকলা"
+            class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">বিশেষ সুবিধা / নোট (ঐচ্ছিক)</label>
+          <input type="text" id="form-bus-amenities" placeholder="যেমন: ডাইরেক্ট সার্ভিস, ওয়াইফাই, পানির বোতল"
+            class="w-full border border-slate-300 focus:border-brand-600 rounded-xl px-3.5 py-2.5 text-sm outline-none" />
+        </div>
+
+        <div class="pt-3 flex items-center justify-end gap-2 border-t border-slate-200">
+          <button type="button" onclick="closeBusFormModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-100">
+            বাতিল
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-md">
+            সংরক্ষণ করুন
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-navy-950 text-slate-300 border-t border-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Brand Info -->
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center text-lg">
+              <i class="fa-solid fa-bus-simple"></i>
+            </div>
+            <div>
+              <h4 class="font-en font-extrabold text-white text-lg">Sherpur Bus Zone</h4>
+              <p class="text-xs text-emerald-400">শেরপুর বাস জোন</p>
+            </div>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            শেরপুর জেলার যাত্রীদের জন্য একটি নির্ভরযোগ্য অনলাইন বাস টিকিট বুকিং প্ল্যাটফর্ম। ঘরে বসেই পছন্দের বাস ও সিট বুক করুন নিরাপদে।
+          </p>
+        </div>
+
+        <!-- Popular Routes -->
+        <div>
+          <h5 class="text-white font-bold text-base mb-3">প্রধান বাস রুটসমূহ</h5>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><button onclick="quickSelectRoute('ঢাকা (মহাখালী / উত্তরা)')" class="hover:text-emerald-400 transition">• শেরপুর → ঢাকা (মহাখালী / উত্তরা)</button></li>
+            <li><button onclick="quickSelectRoute('গাবতলী (ঢাকা)')" class="hover:text-emerald-400 transition">• শেরপুর → গাবতলী (ঢাকা)</button></li>
+            <li><button onclick="quickSelectRoute('কক্সবাজার')" class="hover:text-emerald-400 transition">• শেরপুর → কক্সবাজার (AC / Sleeper)</button></li>
+            <li><button onclick="quickSelectRoute('চট্টগ্রাম')" class="hover:text-emerald-400 transition">• শেরপুর → চট্টগ্রাম</button></li>
+            <li><button onclick="quickSelectRoute('সিলেট')" class="hover:text-emerald-400 transition">• শেরপুর → সিলেট</button></li>
+            <li><button onclick="quickSelectRoute('বরিশাল')" class="hover:text-emerald-400 transition">• শেরপুর → বরিশাল</button></li>
+          </ul>
+        </div>
+
+        <!-- Contact & Counter -->
+        <div>
+          <h5 class="text-white font-bold text-base mb-3">যোগাযোগ ও কাউন্টার</h5>
+          <ul class="space-y-2.5 text-sm text-slate-400">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-location-dot text-emerald-400 mt-1"></i>
+              <span>অষ্টমীতলা নতুন বাস টার্মিনাল ও থানা মোড় কাউন্টার, শেরপুর সদর, শেরপুর।</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+              <a href="https://wa.me/8801789934703" target="_blank" rel="noopener noreferrer" class="text-white font-semibold hover:text-emerald-400 font-en">
+                01789934703 (WhatsApp / কল)
+              </a>
+            </li>
+          </ul>
+          <a href="https://wa.me/8801789934703?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20Sherpur%20Bus%20Zone%20%E0%A6%A5%E0%A7%87%E0%A6%95%E0%A7%87%20%E0%A6%9F%E0%A6%BF%E0%A6%95%E0%A6%BF%E0%A6%9F%20%E0%A6%AC%E0%A7%81%E0%A6%95%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%E0%A5%A4"
+             target="_blank" rel="noopener noreferrer"
+             class="mt-4 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold px-4 py-2.5 rounded-xl text-sm transition shadow">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>সরাসরি WhatsApp মেসেজ দিন</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800/80 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+        <p>© 2026 <strong class="text-slate-300">Sherpur Bus Zone (শেরপুর বাস জোন)</strong>. সর্বস্বত্ব সংরক্ষিত।</p>
+        <p>শেরপুর জেলার যাত্রীসেবায় নিবেদিত</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    // Constants & Keys
+    const WHATSAPP_NUMBER = '8801789934703';
+    const STORAGE_BUSES_KEY = 'sbz_buses_v1';
+    const STORAGE_BOOKINGS_KEY = 'sbz_bookings_v1';
+    const ADMIN_PIN = '1234';
+
+    // Default Pre-loaded Sherpur Regional Buses & Routes
+    const DEFAULT_BUSES = [
+      {
+        id: 'bus-1',
+        name: 'সোনার বাংলা এক্সপ্রেস (Sonar Bangla)',
+        coach: 'AC',
+        destination: 'ঢাকা (মহাখালী / উত্তরা)',
+        time: 'সকাল ০৭:৩০',
+        fare: 650,
+        layout: '2+2-36',
+        boarding: ['অষ্টমীতলা নতুন বাস টার্মিনাল', 'শেরপুর থানা মোড়', 'নকলা বাজার'],
+        amenities: 'এসি চেয়ার কোচ, ডাইরেক্ট সার্ভিস, চার্জিং পোর্ট'
+      },
+      {
+        id: 'bus-2',
+        name: 'শ্যামলী এন.আর ট্রাভেলস (Shyamoli NR)',
+        coach: 'Non-AC',
+        destination: 'ঢাকা (মহাখালী / উত্তরা)',
+        time: 'সকাল ০৯:০০',
+        fare: 450,
+        layout: '2+2-40',
+        boarding: ['অষ্টমীতলা নতুন বাস টার্মিনাল', 'খোয়ারপাড় শাপলা চত্বর', 'নকলা'],
+        amenities: 'আরামদায়ক সিট, সময়মতো যাত্রা'
+      },
+      {
+        id: 'bus-3',
+        name: 'হানিফ এন্টারপ্রাইজ (Hanif Enterprise)',
+        coach: 'Non-AC',
+        destination: 'গাবতলী (ঢাকা)',
+        time: 'সকাল ১০:১৫',
+        fare: 500,
+        layout: '2+2-40',
+        boarding: ['অষ্টমীতলা নতুন বাস টার্মিনাল', 'শেরপুর থানা মোড়', 'নকলা'],
+        amenities: 'গাবতলী ও সাভারগামী সরাসরি কোচ'
+      },
+      {
+        id: 'bus-4',
+        name: 'সেন্টমার্টিন হুন্দাই (Saintmartin Hyundai)',
+        coach: 'Sleeper',
+        destination: 'কক্সবাজার',
+        time: 'সন্ধ্যা ০৬:৩০',
+        fare: 1800,
+        layout: '2+1-27',
+        boarding: ['অষ্টমীতলা নতুন বাস টার্মিনাল', 'শেরপুর থানা মোড়', 'নকলা'],
+        amenities: 'লাক্সারি স্লিপার, কম্বল ও পানির বোতল, ডাইরেক্ট কক্সবাজার'
+      },
+      {
+        id: 'bus-5',
+        name: 'সৌদিয়া পরিবহন (Saudia Coach)',
+        coach: 'AC',
+        destination: 'কক্সবাজার',
+        time: 'সন্ধ্যা ০৭:১৫',
+        fare: 1450,
+        layout: '2+2-36',
+        boarding: ['অষ্টমীতলা নতুন বাস টার্মিনাল', 'শেরপুর থানা মোড়'],
+        amenities: 'বিজনেস ক্লাস এসি, আরামদায়ক রিক্লাইনার সিট'
+      },
+      {
+        id: 'bus-6',
+        name: 'এস. আলম সার্ভিস (S. Alam)',
+        coach: 'AC',
+        destination: 'চট্টগ্রাম',
+        time: 'রাত ০৮:৩০',
+        fare: 1200,
+        layout: '2+2-36',
+        boarding: ['অষ্টমীতলা নতুন বাস টার্মিনাল', 'শেরপুর থানা মোড়', 'নকলা'],
+        amenities: 'এসি কোচ, সরাসরি চট্টগ্রাম দামপাড়া কাউন্টার'
+      },
+      {
+        id: 'bus-7',
+        name: 'এনা ট্রান্সপোর্ট (Ena Transport)',
+        coach: 'Non-AC',
+        destination: 'সিলেট',
+        time: 'রাত ০৯:৩০',
+        fare: 750,
+        layout: '2+2-40',
+        boarding: ['অষ্টমীতলা নতুন বাস টার্মিনাল', 'শেরপুর থানা মোড়', 'নকলা'],
+        amenities: 'সিলেট কদমতলী ও মাজার গেটগামী কোচ'
+      },
+      {
+        id: 'bus-8',
+        name: 'সাকুরা পরিবহন (Sakura Paribahan)',
+        coach: 'AC',
+        destination: 'বরিশাল',
+        time: 'রাত ০৮:০০',
+        fare: 1100,
+        layout: '2+2-36',
+        boarding: ['অষ্টমীতলা নতুন বাস টার্মিনাল', 'শেরপুর থানা মোড়', 'নকলা'],
+        amenities: 'পদ্মা সেতু হয়ে সরাসরি বরিশাল নথুল্লাবাদ'
+      }
+    ];
+
+    // App State
+    let buses = [];
+    let bookings = [];
+    let activeBus = null;
+    let selectedSeats = [];
+    let isAdminUnlocked = false;
+
+    // Initialize App on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadStorageData();
+      setDefaultDate();
+      populateRouteFilters();
+      renderBusList();
+      updateMyBookingsBadge();
+    });
+
+    // Load data from localStorage or seed defaults
+    function loadStorageData() {
+      try {
+        const storedBuses = localStorage.getItem(STORAGE_BUSES_KEY);
+        if (storedBuses) {
+          buses = JSON.parse(storedBuses);
+        } else {
+          buses = [...DEFAULT_BUSES];
+          saveBusesToStorage();
+        }
+
+        const storedBookings = localStorage.getItem(STORAGE_BOOKINGS_KEY);
+        bookings = storedBookings ? JSON.parse(storedBookings) : [];
+      } catch (e) {
+        console.error('Storage error:', e);
+        buses = [...DEFAULT_BUSES];
+        bookings = [];
+      }
+    }
+
+    function saveBusesToStorage() {
+      localStorage.setItem(STORAGE_BUSES_KEY, JSON.stringify(buses));
+    }
+
+    function saveBookingsToStorage() {
+      localStorage.setItem(STORAGE_BOOKINGS_KEY, JSON.stringify(bookings));
+      updateMyBookingsBadge();
+    }
+
+    // Set Today's Date in Date Picker
+    function setDefaultDate() {
+      const dateInput = document.getElementById('filter-date');
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const formatted = `${yyyy}-${mm}-${dd}`;
+      dateInput.value = formatted;
+      dateInput.min = formatted;
+    }
+
+    // Populate Destination Dropdown & Quick Chips dynamically from active buses
+    function populateRouteFilters() {
+      const select = document.getElementById('filter-destination');
+      const chipsContainer = document.getElementById('quick-route-chips');
+      const currentVal = select.value;
+
+      const uniqueDestinations = [...new Set(buses.map(b => b.destination))];
+
+      select.innerHTML = `<option value="ALL">সকল গন্তব্য (All Routes)</option>`;
+      uniqueDestinations.forEach(dest => {
+        const opt = document.createElement('option');
+        opt.value = dest;
+        opt.textContent = `শেরপুর → ${dest}`;
+        select.appendChild(opt);
+      });
+
+      if (uniqueDestinations.includes(currentVal)) {
+        select.value = currentVal;
+      }
+
+      // Render Quick Filter Chips
+      chipsContainer.innerHTML = `
+        <button onclick="quickSelectRoute('ALL')"
+          class="px-3 py-1 rounded-full text-xs font-semibold transition border ${select.value === 'ALL' ? 'bg-navy-900 text-white border-navy-900' : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-brand-500'}">
+          সব রুট
+        </button>
+      `;
+      uniqueDestinations.forEach(dest => {
+        const isSelected = select.value === dest;
+        const shortName = dest.split('(')[0].trim();
+        chipsContainer.innerHTML += `
+          <button onclick="quickSelectRoute('${dest.replace(/'/g, "\\'")}')"
+            class="px-3 py-1 rounded-full text-xs font-semibold transition border ${isSelected ? 'bg-brand-600 text-white border-brand-600 shadow-sm' : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-brand-500 hover:text-brand-700'}">
+            শেরপুর → ${shortName}
+          </button>
+        `;
+      });
+    }
+
+    function quickSelectRoute(destination) {
+      switchTab('booking');
+      const select = document.getElementById('filter-destination');
+      select.value = destination;
+      populateRouteFilters();
+      renderBusList();
+      document.getElementById('bus-list-container').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Get Booked Seats for a specific Bus & Date
+    function getBookedSeatsForBusDate(busId, dateStr) {
+      const matched = bookings.filter(b => b.busId === busId && b.date === dateStr && b.status !== 'Cancelled');
+      let seatList = [];
+      matched.forEach(b => {
+        seatList = seatList.concat(b.seats);
+      });
+      return seatList;
+    }
+
+    // Parse Total Seats from layout string (e.g., '2+2-36' -> 36)
+    function getTotalSeatsCount(layout) {
+      const parts = layout.split('-');
+      return parseInt(parts[1], 10) || 36;
+    }
+
+    // Render Bus Cards List
+    function renderBusList() {
+      const destFilter = document.getElementById('filter-destination').value;
+      const coachFilter = document.getElementById('filter-coach').value;
+      const selectedDate = document.getElementById('filter-date').value;
+      const container = document.getElementById('bus-list-container');
+
+      populateRouteFilters();
+
+      const filtered = buses.filter(bus => {
+        const matchDest = destFilter === 'ALL' || bus.destination === destFilter;
+        const matchCoach = coachFilter === 'ALL' || bus.coach === coachFilter;
+        return matchDest && matchCoach;
+      });
+
+      // Update Header Info
+      const titleEl = document.getElementById('results-title');
+      const badgeEl = document.getElementById('bus-count-badge');
+      titleEl.textContent = destFilter === 'ALL' ? 'শেরপুর থেকে সকল রুটের বাসসমূহ' : `শেরপুর → ${destFilter}`;
+      badgeEl.textContent = `${toBanglaDigit(filtered.length)}টি বাস পাওয়া গেছে`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl border border-slate-200 p-10 text-center">
+            <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-2xl mx-auto mb-3">
+              <i class="fa-solid fa-bus-simple"></i>
+            </div>
+            <h3 class="text-lg font-bold text-navy-900">এই ফিল্টারে কোনো বাস পাওয়া যায়নি</h3>
+            <p class="text-sm text-slate-500 mt-1 mb-4">অন্য গন্তব্য বা কোচের ধরন পরিবর্তন করে আবার দেখুন।</p>
+            <button onclick="resetFilters()" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition">
+              সব বাস দেখুন
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(bus => {
+        const totalSeats = getTotalSeatsCount(bus.layout);
+        const bookedSeats = getBookedSeatsForBusDate(bus.id, selectedDate);
+        const availableSeats = Math.max(0, totalSeats - bookedSeats.length);
+
+        const coachBadgeStyle =
+          bus.coach === 'AC' ? 'bg-sky-50 text-sky-700 border-sky-200' :
+          bus.coach === 'Sleeper' ? 'bg-purple-50 text-purple-700 border-purple-200' :
+          'bg-amber-50 text-amber-800 border-amber-200';
+
+        const coachLabel =
+          bus.coach === 'AC' ? 'AC কোচ' :
+          bus.coach === 'Sleeper' ? 'Sleeper স্লিপার' : 'Non-AC নন-এসি';
+
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200 hover:border-brand-400 shadow-sm hover:shadow-md transition p-4 sm:p-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <!-- Bus Info -->
+              <div class="space-y-2 flex-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="text-lg sm:text-xl font-bold text-navy-900">${bus.name}</h3>
+                  <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border ${coachBadgeStyle}">
+                    ${coachLabel}
+                  </span>
+                </div>
+
+                <!-- Route Visual -->
+                <div class="flex flex-wrap items-center gap-2 text-sm font-semibold text-slate-700">
+                  <span class="bg-slate-100 px-2.5 py-1 rounded-lg text-navy-900">শেরপুর</span>
+                  <i class="fa-solid fa-arrow-right-long text-brand-600"></i>
+                  <span class="bg-brand-50 text-brand-800 px-2.5 py-1 rounded-lg">${bus.destination}</span>
+                </div>
+
+                <!-- Boarding & Amenities -->
+                <div class="text-xs text-slate-500 flex flex-wrap items-center gap-x-4 gap-y-1 pt-1">
+                  <span><i class="fa-solid fa-location-dot text-brand-600 mr-1"></i> বোর্ডিং: ${bus.boarding[0] || 'অষ্টমীতলা টার্মিনাল'}</span>
+                  ${bus.amenities ? `<span><i class="fa-solid fa-sparkles text-amber-500 mr-1"></i> ${bus.amenities}</span>` : ''}
+                </div>
+              </div>
+
+              <!-- Time & Seats Info -->
+              <div class="flex flex-wrap sm:flex-nowrap items-center justify-between lg:justify-end gap-4 sm:gap-8 pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-100">
+                <div>
+                  <span class="text-xs text-slate-400 block">ছাড়ার সময়</span>
+                  <span class="text-base sm:text-lg font-bold text-navy-900 flex items-center gap-1.5">
+                    <i class="fa-regular fa-clock text-brand-600 text-sm"></i> ${bus.time}
+                  </span>
+                </div>
+
+                <div>
+                  <span class="text-xs text-slate-400 block">সিট ফাঁকা আছে</span>
+                  <span class="text-sm sm:text-base font-bold ${availableSeats > 5 ? 'text-emerald-600' : 'text-rose-600'}">
+                    ${toBanglaDigit(availableSeats)}টি / ${toBanglaDigit(totalSeats)}টি
+                  </span>
+                </div>
+
+                <!-- Price & Action -->
+                <div class="flex items-center gap-4 ml-auto sm:ml-0">
+                  <div class="text-right">
+                    <span class="text-xs text-slate-400 block">প্রতি সিট ভাড়া</span>
+                    <span class="text-xl sm:text-2xl font-extrabold text-brand-700 font-en">৳${bus.fare}</span>
+                  </div>
+
+                  <button onclick="openSeatModal('${bus.id}')"
+                    class="bg-navy-900 hover:bg-brand-600 text-white font-bold px-4 sm:px-5 py-3 rounded-xl text-sm transition shadow-sm flex items-center gap-2 whitespace-nowrap">
+                    <span>সিট দেখুন</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function resetFilters() {
+      document.getElementById('filter-destination').value = 'ALL';
+      document.getElementById('filter-coach').value = 'ALL';
+      renderBusList();
+    }
+
+    // ==================== SEAT SELECTION MODAL LOGIC ====================
+    function openSeatModal(busId) {
+      const bus = buses.find(b => b.id === busId);
+      if (!bus) return;
+
+      activeBus = bus;
+      selectedSeats = [];
+      const selectedDate = document.getElementById('filter-date').value;
+
+      document.getElementById('modal-bus-name').textContent = bus.name;
+      document.getElementById('modal-coach-badge').textContent = bus.coach;
+      document.getElementById('modal-route-info').textContent = `শেরপুর → ${bus.destination} | তারিখ: ${selectedDate} | সময়: ${bus.time}`;
+      document.getElementById('modal-unit-fare').textContent = `৳${bus.fare}`;
+
+      // Populate boarding dropdown
+      const boardingSelect = document.getElementById('passenger-boarding');
+      boardingSelect.innerHTML = bus.boarding.map(pt => `<option value="${pt}">${pt}</option>`).join('');
+
+      renderSeatGrid();
+      updateSelectedSeatsUI();
+
+      document.getElementById('seat-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSeatModal() {
+      document.getElementById('seat-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+      activeBus = null;
+      selectedSeats = [];
+    }
+
+    function renderSeatGrid() {
+      if (!activeBus) return;
+      const container = document.getElementById('seat-grid-container');
+      const selectedDate = document.getElementById('filter-date').value;
+      const bookedSeats = getBookedSeatsForBusDate(activeBus.id, selectedDate);
+
+      const isSleeperOr2Plus1 = activeBus.layout.startsWith('2+1');
+      const totalSeats = getTotalSeatsCount(activeBus.layout);
+      const colsPerRow = isSleeperOr2Plus1 ? 3 : 4;
+      const rowCount = Math.ceil(totalSeats / colsPerRow);
+      const rowLetters = 'ABCDEFGHIJKLMN'.split('');
+
+      let html = '';
+      for (let r = 0; r < rowCount; r++) {
+        const letter = rowLetters[r] || `R${r+1}`;
+        html += `<div class="flex items-center justify-between gap-2">`;
+
+        if (isSleeperOr2Plus1) {
+          // 2 + 1 Layout (Left 2 seats, Aisle, Right 1 seat)
+          html += `<div class="flex gap-2">`;
+          html += createSeatButton(`${letter}1`, bookedSeats);
+          html += createSeatButton(`${letter}2`, bookedSeats);
+          html += `</div>`;
+          html += `<div class="w-6 text-center text-[10px] text-slate-300 font-en">${letter}</div>`;
+          html += `<div>`;
+          html += createSeatButton(`${letter}3`, bookedSeats);
+          html += `</div>`;
+        } else {
+          // 2 + 2 Layout (Left 2 seats, Aisle, Right 2 seats)
+          html += `<div class="flex gap-2">`;
+          html += createSeatButton(`${letter}1`, bookedSeats);
+          html += createSeatButton(`${letter}2`, bookedSeats);
+          html += `</div>`;
+          html += `<div class="w-5 text-center text-[10px] text-slate-300 font-en">${letter}</div>`;
+          html += `<div class="flex gap-2">`;
+          html += createSeatButton(`${letter}3`, bookedSeats);
+          html += createSeatButton(`${letter}4`, bookedSeats);
+          html += `</div>`;
+        }
+
+        html += `</div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function createSeatButton(seatCode, bookedSeats) {
+      const isBooked = bookedSeats.includes(seatCode);
+      const isSelected = selectedSeats.includes(seatCode);
+
+      if (isBooked) {
+        return `
+          <button type="button" disabled title="এই সিটটি ইতিমধ্যে বুকড"
+            class="w-11 h-10 rounded-lg bg-rose-100 border-2 border-rose-300 text-rose-500 font-en font-bold text-xs cursor-not-allowed flex items-center justify-center">
+            ${seatCode}
+          </button>
+        `;
+      }
+
+      const activeClass = isSelected
+        ? 'bg-brand-600 border-brand-700 text-white shadow-sm scale-105'
+        : 'bg-white border-slate-300 text-slate-700 hover:border-brand-500 hover:text-brand-700';
+
+      return `
+        <button type="button" onclick="toggleSeat('${seatCode}')"
+          class="w-11 h-10 rounded-lg border-2 font-en font-bold text-xs transition transform flex items-center justify-center ${activeClass}">
+          ${seatCode}
+        </button>
+      `;
+    }
+
+    function toggleSeat(seatCode) {
+      const idx = selectedSeats.indexOf(seatCode);
+      if (idx > -1) {
+        selectedSeats.splice(idx, 1);
+      } else {
+        if (selectedSeats.length >= 6) {
+          showToast('একবারে সর্বোচ্চ ৬টি সিট বুক করা যাবে।', 'warning');
+          return;
+        }
+        selectedSeats.push(seatCode);
+      }
+      renderSeatGrid();
+      updateSelectedSeatsUI();
+    }
+
+    function updateSelectedSeatsUI() {
+      const badgesContainer = document.getElementById('selected-seats-badges');
+      const totalFareEl = document.getElementById('modal-total-fare');
+
+      if (selectedSeats.length === 0) {
+        badgesContainer.innerHTML = `<span class="text-xs text-slate-500 italic">এখনো কোনো সিট সিলেক্ট করা হয়নি</span>`;
+        totalFareEl.textContent = '৳0';
+        return;
+      }
+
+      badgesContainer.innerHTML = selectedSeats.map(seat => `
+        <span class="inline-flex items-center gap-1 bg-brand-600 text-white font-en font-bold text-xs px-2.5 py-1 rounded-lg">
+          ${seat}
+          <button type="button" onclick="toggleSeat('${seat}')" class="hover:text-rose-200 ml-0.5">&times;</button>
+        </span>
+      `).join('');
+
+      const total = selectedSeats.length * activeBus.fare;
+      totalFareEl.textContent = `৳${total}`;
+    }
+
+    // Validate Passenger Form before Booking
+    function validateBookingInput() {
+      if (!activeBus) return null;
+      if (selectedSeats.length === 0) {
+        showToast('অনুগ্রহ করে অন্তত ১টি সিট নির্বাচন করুন।', 'error');
+        return null;
+      }
+
+      const name = document.getElementById('passenger-name').value.trim();
+      const phone = document.getElementById('passenger-phone').value.trim();
+      const gender = document.getElementById('passenger-gender').value;
+      const boarding = document.getElementById('passenger-boarding').value;
+      const date = document.getElementById('filter-date').value;
+
+      if (!name) {
+        showToast('যাত্রীর নাম লিখুন।', 'error');
+        document.getElementById('passenger-name').focus();
+        return null;
+      }
+      if (!phone || phone.length < 11) {
+        showToast('সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন।', 'error');
+        document.getElementById('passenger-phone').focus();
+        return null;
+      }
+
+      return {
+        id: 'SBZ-' + Math.floor(100000 + Math.random() * 900000),
+        busId: activeBus.id,
+        busName: activeBus.name,
+        coach: activeBus.coach,
+        destination: activeBus.destination,
+        time: activeBus.time,
+        date,
+        seats: [...selectedSeats],
+        totalFare: selectedSeats.length * activeBus.fare,
+        passengerName: name,
+        passengerPhone: phone,
+        gender,
+        boarding,
+        status: 'Confirmed',
+        createdAt: new Date().toISOString()
+      };
+    }
+
+    // Option 1: Confirm Online & Generate E-Ticket
+    function confirmOnlineBooking() {
+      const bookingData = validateBookingInput();
+      if (!bookingData) return;
+
+      bookings.unshift(bookingData);
+      saveBookingsToStorage();
+
+      closeSeatModal();
+      renderBusList();
+      showToast('অভিনন্দন! আপনার টিকিট বুকিং সফলভাবে সম্পন্ন হয়েছে।', 'success');
+      openEticketModal(bookingData);
+    }
+
+    // Option 2: Send Booking directly to Owner WhatsApp (01789934703)
+    function bookViaWhatsApp() {
+      const bookingData = validateBookingInput();
+      if (!bookingData) return;
+
+      // Save booking locally as well so seat status updates
+      bookings.unshift(bookingData);
+      saveBookingsToStorage();
+
+      const waUrl = buildWhatsAppBookingLink(bookingData);
+      closeSeatModal();
+      renderBusList();
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    }
+
+    function buildWhatsAppBookingLink(b) {
+      const msg =
+`আসসালামু আলাইকুম, *Sherpur Bus Zone* থেকে টিকিট বুক করতে চাই:
+
+*টিকিট আইডি:* ${b.id}
+*বাসের নাম:* ${b.busName} (${b.coach})
+*রুট:* শেরপুর → ${b.destination}
+*যাত্রার তারিখ:* ${b.date}
+*ছাড়ার সময়:* ${b.time}
+*নির্বাচিত সিট:* ${b.seats.join(', ')}
+*মোট ভাড়া:* ৳${b.totalFare}
+
+*যাত্রীর নাম:* ${b.passengerName}
+*মোবাইল:* ${b.passengerPhone}
+*বোর্ডিং পয়েন্ট:* ${b.boarding}
+
+দয়া করে বুকিংটি কনফার্ম করবেন। ধন্যবাদ!`;
+
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    }
+
+    // ==================== E-TICKET MODAL ====================
+    function openEticketModal(booking) {
+      document.getElementById('ticket-id-display').textContent = booking.id;
+      document.getElementById('ticket-date-display').textContent = booking.date;
+      document.getElementById('ticket-passenger-name').textContent = `${booking.passengerName} (${booking.gender.split(' ')[0]})`;
+      document.getElementById('ticket-passenger-phone').textContent = booking.passengerPhone;
+      document.getElementById('ticket-bus-name').textContent = `${booking.busName} (${booking.coach})`;
+      document.getElementById('ticket-departure-time').textContent = booking.time;
+      document.getElementById('ticket-route-boarding').textContent = `শেরপুর → ${booking.destination} (${booking.boarding})`;
+      document.getElementById('ticket-seats-display').textContent = booking.seats.join(', ');
+      document.getElementById('ticket-fare-display').textContent = `৳${booking.totalFare}`;
+      document.getElementById('ticket-whatsapp-share').href = buildWhatsAppBookingLink(booking);
+
+      document.getElementById('eticket-modal').classList.remove('hidden');
+    }
+
+    function closeEticketModal() {
+      document.getElementById('eticket-modal').classList.add('hidden');
+    }
+
+    // ==================== MY BOOKINGS VIEW ====================
+    function updateMyBookingsBadge() {
+      const activeCount = bookings.filter(b => b.status !== 'Cancelled').length;
+      const badge = document.getElementById('my-bookings-badge');
+      if (activeCount > 0) {
+        badge.textContent = activeCount;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    function renderMyBookings() {
+      const container = document.getElementById('my-bookings-list');
+      if (bookings.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl border border-slate-200 p-10 text-center">
+            <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-2xl mx-auto mb-3">
+              <i class="fa-solid fa-ticket"></i>
+            </div>
+            <h3 class="text-lg font-bold text-navy-900">এখনো কোনো টিকিট বুক করা হয়নি</h3>
+            <p class="text-sm text-slate-500 mt-1 mb-4">আপনি টিকিট বুক করলে সেগুলো এখানে সংরক্ষিত থাকবে।</p>
+            <button onclick="switchTab('booking')" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition">
+              টিকিট বুকিং পেজে যান
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = bookings.map(b => `
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="font-en font-bold text-xs bg-navy-900 text-white px-2.5 py-0.5 rounded-md">${b.id}</span>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${b.status === 'Cancelled' ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
+                ${b.status === 'Cancelled' ? 'বাতিলকৃত' : 'কনফার্মড'}
+              </span>
+              <span class="text-xs text-slate-500 font-en"><i class="fa-regular fa-calendar mr-1"></i>${b.date} | ${b.time}</span>
+            </div>
+            <h3 class="text-lg font-bold text-navy-900">${b.busName} <span class="text-xs font-semibold text-slate-500">(${b.coach})</span></h3>
+            <p class="text-sm font-semibold text-brand-700">শেরপুর → ${b.destination}</p>
+            <p class="text-xs text-slate-600">যাত্রী: <strong>${b.passengerName}</strong> (${b.passengerPhone}) | সিট: <strong class="font-en text-navy-900">${b.seats.join(', ')}</strong></p>
+          </div>
+
+          <div class="flex sm:flex-col items-center sm:items-end justify-between gap-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+            <span class="text-xl font-extrabold text-navy-900 font-en">৳${b.totalFare}</span>
+            <div class="flex items-center gap-2">
+              <button onclick='openEticketModal(${JSON.stringify(b).replace(/'/g, "&#39;")})'
+                class="bg-navy-900 hover:bg-navy-800 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition">
+                <i class="fa-solid fa-eye mr-1"></i> ই-টিকিট
+              </button>
+              <a href="${buildWhatsAppBookingLink(b)}" target="_blank" rel="noopener noreferrer"
+                class="bg-[#25D366] hover:bg-[#1ebe5d] text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition">
+                <i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==================== NAVIGATION TABS ====================
+    function switchTab(tabName) {
+      const views = ['booking', 'mybookings', 'admin'];
+      views.forEach(v => {
+        document.getElementById(`view-${v}`).classList.add('hidden');
+        const btn = document.getElementById(`nav-${v}`);
+        btn.classList.remove('bg-white', 'text-brand-700', 'shadow-sm');
+        btn.classList.add('text-slate-600');
+      });
+
+      document.getElementById(`view-${tabName}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`nav-${tabName}`);
+      activeBtn.classList.add('bg-white', 'text-brand-700', 'shadow-sm');
+      activeBtn.classList.remove('text-slate-600');
+
+      if (tabName === 'mybookings') renderMyBookings();
+      if (tabName === 'admin' && isAdminUnlocked) renderAdminDashboard();
+    }
+
+    // ==================== ADMIN PANEL LOGIC ====================
+    function unlockAdmin(e) {
+      e.preventDefault();
+      const input = document.getElementById('admin-pin-input').value.trim();
+      if (input === ADMIN_PIN) {
+        isAdminUnlocked = true;
+        document.getElementById('admin-lock-screen').classList.add('hidden');
+        document.getElementById('admin-dashboard').classList.remove('hidden');
+        renderAdminDashboard();
+        showToast('অ্যাডমিন প্যানেল আনলক হয়েছে।', 'success');
+      } else {
+        showToast('ভুল পিন কোড! ডিফল্ট পিন 1234 ব্যবহার করুন।', 'error');
+      }
+    }
+
+    function lockAdmin() {
+      isAdminUnlocked = false;
+      document.getElementById('admin-pin-input').value = '';
+      document.getElementById('admin-dashboard').classList.add('hidden');
+      document.getElementById('admin-lock-screen').classList.remove('hidden');
+    }
+
+    function switchAdminSubtab(subtab) {
+      const isBuses = subtab === 'buses';
+      document.getElementById('admin-panel-buses').classList.toggle('hidden', !isBuses);
+      document.getElementById('admin-panel-bookings').classList.toggle('hidden', isBuses);
+
+      document.getElementById('admin-subtab-buses').className = isBuses
+        ? 'pb-3 border-b-2 border-brand-600 text-brand-700 font-bold text-sm sm:text-base'
+        : 'pb-3 border-b-2 border-transparent text-slate-500 hover:text-navy-900 font-bold text-sm sm:text-base';
+
+      document.getElementById('admin-subtab-bookings').className = !isBuses
+        ? 'pb-3 border-b-2 border-brand-600 text-brand-700 font-bold text-sm sm:text-base'
+        : 'pb-3 border-b-2 border-transparent text-slate-500 hover:text-navy-900 font-bold text-sm sm:text-base';
+    }
+
+    function renderAdminDashboard() {
+      const uniqueRoutes = [...new Set(buses.map(b => b.destination))];
+      const activeBookings = bookings.filter(b => b.status !== 'Cancelled');
+      const totalRevenue = activeBookings.reduce((sum, b) => sum + (Number(b.totalFare) || 0), 0);
+
+      document.getElementById('stat-total-buses').textContent = buses.length;
+      document.getElementById('stat-total-routes').textContent = uniqueRoutes.length;
+      document.getElementById('stat-total-bookings').textContent = activeBookings.length;
+      document.getElementById('stat-total-revenue').textContent = `৳${totalRevenue}`;
+      document.getElementById('admin-bus-tab-count').textContent = buses.length;
+      document.getElementById('admin-booking-tab-count').textContent = bookings.length;
+
+      // Render Buses Table
+      const busTbody = document.getElementById('admin-buses-tbody');
+      busTbody.innerHTML = buses.map(bus => `
+        <tr class="hover:bg-slate-50">
+          <td class="py-3.5 px-4">
+            <p class="font-bold text-navy-900">${bus.name}</p>
+            <span class="text-xs font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded">${bus.coach}</span>
+          </td>
+          <td class="py-3.5 px-4 font-semibold text-slate-700">শেরপুর → ${bus.destination}</td>
+          <td class="py-3.5 px-4 text-slate-700">${bus.time}</td>
+          <td class="py-3.5 px-4 font-en font-bold text-navy-900">৳${bus.fare}</td>
+          <td class="py-3.5 px-4 text-xs text-slate-500">${bus.layout} (${getTotalSeatsCount(bus.layout)} সিট)</td>
+          <td class="py-3.5 px-4 text-right space-x-1 whitespace-nowrap">
+            <button onclick="openBusFormModal('${bus.id}')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-bold transition">
+              <i class="fa-solid fa-pen-to-square"></i> এডিট
+            </button>
+            <button onclick="deleteBus('${bus.id}')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 px-3 py-1.5 rounded-lg text-xs font-bold transition">
+              <i class="fa-solid fa-trash"></i> ডিলিট
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Render Bookings Table
+      const bookingTbody = document.getElementById('admin-bookings-tbody');
+      if (bookings.length === 0) {
+        bookingTbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-500">এখনো কোনো বুকিং রেকর্ড নেই।</td></tr>`;
+      } else {
+        bookingTbody.innerHTML = bookings.map(b => `
+          <tr class="hover:bg-slate-50">
+            <td class="py-3.5 px-4 font-en font-bold text-xs text-navy-900">${b.id}</td>
+            <td class="py-3.5 px-4">
+              <p class="font-bold text-navy-900">${b.passengerName}</p>
+              <p class="text-xs font-en text-slate-500">${b.passengerPhone}</p>
+            </td>
+            <td class="py-3.5 px-4">
+              <p class="font-semibold text-slate-800">${b.busName}</p>
+              <p class="text-xs text-brand-700">শেরপুর → ${b.destination}</p>
+            </td>
+            <td class="py-3.5 px-4">
+              <p class="text-xs font-en text-slate-600">${b.date} (${b.time})</p>
+              <p class="font-en font-bold text-xs text-navy-900">সিট: ${b.seats.join(', ')}</p>
+            </td>
+            <td class="py-3.5 px-4 font-en font-bold text-emerald-700">৳${b.totalFare}</td>
+            <td class="py-3.5 px-4 text-right whitespace-nowrap">
+              ${b.status !== 'Cancelled' ? `
+                <button onclick="cancelBookingByAdmin('${b.id}')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 px-3 py-1.5 rounded-lg text-xs font-bold transition">
+                  সিট মুক্ত/বাতিল
+                </button>
+              ` : `<span class="text-xs text-rose-500 font-semibold">বাতিলকৃত</span>`}
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // Open Add/Edit Bus Modal
+    function openBusFormModal(busId = null) {
+      const modal = document.getElementById('bus-form-modal');
+      const titleEl = document.getElementById('bus-form-title');
+
+      if (busId) {
+        const bus = buses.find(b => b.id === busId);
+        if (!bus) return;
+        titleEl.textContent = 'বাস ও রুট তথ্য আপডেট করুন';
+        document.getElementById('form-bus-id').value = bus.id;
+        document.getElementById('form-bus-name').value = bus.name;
+        document.getElementById('form-bus-coach').value = bus.coach;
+        document.getElementById('form-bus-destination').value = bus.destination;
+        document.getElementById('form-bus-time').value = bus.time;
+        document.getElementById('form-bus-fare').value = bus.fare;
+        document.getElementById('form-bus-layout').value = bus.layout;
+        document.getElementById('form-bus-boarding').value = bus.boarding.join(', ');
+        document.getElementById('form-bus-amenities').value = bus.amenities || '';
+      } else {
+        titleEl.textContent = 'নতুন বাস ও রুট যোগ করুন';
+        document.getElementById('form-bus-id').value = '';
+        document.getElementById('form-bus-name').value = '';
+        document.getElementById('form-bus-coach').value = 'Non-AC';
+        document.getElementById('form-bus-destination').value = '';
+        document.getElementById('form-bus-time').value = '';
+        document.getElementById('form-bus-fare').value = '';
+        document.getElementById('form-bus-layout').value = '2+2-36';
+        document.getElementById('form-bus-boarding').value = 'অষ্টমীতলা নতুন বাস টার্মিনাল, শেরপুর থানা মোড়, নকলা';
+        document.getElementById('form-bus-amenities').value = '';
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeBusFormModal() {
+      document.getElementById('bus-form-modal').classList.add('hidden');
+    }
+
+    function saveBusForm(e) {
+      e.preventDefault();
+      const id = document.getElementById('form-bus-id').value;
+      const name = document.getElementById('form-bus-name').value.trim();
+      const coach = document.getElementById('form-bus-coach').value;
+      const destination = document.getElementById('form-bus-destination').value.trim();
+      const time = document.getElementById('form-bus-time').value.trim();
+      const fare = Number(document.getElementById('form-bus-fare').value);
+      const layout = document.getElementById('form-bus-layout').value;
+      const boardingRaw = document.getElementById('form-bus-boarding').value;
+      const boarding = boardingRaw.split(',').map(s => s.trim()).filter(Boolean);
+      const amenities = document.getElementById('form-bus-amenities').value.trim();
+
+      if (id) {
+        // Edit existing bus
+        const idx = buses.findIndex(b => b.id === id);
+        if (idx > -1) {
+          buses[idx] = { id, name, coach, destination, time, fare, layout, boarding, amenities };
+          showToast('বাসের তথ্য সফলভাবে আপডেট হয়েছে!', 'success');
+        }
+      } else {
+        // Add new bus
+        const newBus = {
+          id: 'bus-' + Date.now(),
+          name,
+          coach,
+          destination,
+          time,
+          fare,
+          layout,
+          boarding: boarding.length ? boarding : ['অষ্টমীতলা নতুন বাস টার্মিনাল'],
+          amenities
+        };
+        buses.unshift(newBus);
+        showToast('নতুন বাস ও রুট সফলভাবে যুক্ত হয়েছে!', 'success');
+      }
+
+      saveBusesToStorage();
+      closeBusFormModal();
+      populateRouteFilters();
+      renderBusList();
+      renderAdminDashboard();
+    }
+
+    function deleteBus(busId) {
+      buses = buses.filter(b => b.id !== busId);
+      saveBusesToStorage();
+      populateRouteFilters();
+      renderBusList();
+      renderAdminDashboard();
+      showToast('বাসটি তালিকা থেকে মুছে ফেলা হয়েছে।', 'info');
+    }
+
+    function cancelBookingByAdmin(bookingId) {
+      const idx = bookings.findIndex(b => b.id === bookingId);
+      if (idx > -1) {
+        bookings[idx].status = 'Cancelled';
+        saveBookingsToStorage();
+        renderAdminDashboard();
+        renderBusList();
+        showToast('বুকিং বাতিল করা হয়েছে এবং সিটগুলো পুনরায় ফাঁকা হয়েছে।', 'info');
+      }
+    }
+
+    function resetDemoData() {
+      buses = [...DEFAULT_BUSES];
+      saveBusesToStorage();
+      populateRouteFilters();
+      renderBusList();
+      renderAdminDashboard();
+      showToast('ডিফল্ট বাস ও রুট তালিকা রিসেট করা হয়েছে।', 'success');
+    }
+
+    // Export & Import JSON Backup
+    function exportDataJSON() {
+      const payload = { buses, bookings, exportedAt: new Date().toISOString() };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `sherpur-bus-zone-backup-${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('ব্যাকআপ ফাইল ডাউনলোড হয়েছে।', 'success');
+    }
+
+    function importDataJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (Array.isArray(data.buses)) {
+            buses = data.buses;
+            saveBusesToStorage();
+          }
+          if (Array.isArray(data.bookings)) {
+            bookings = data.bookings;
+            saveBookingsToStorage();
+          }
+          populateRouteFilters();
+          renderBusList();
+          renderAdminDashboard();
+          showToast('ব্যাকআপ ডাটা সফলভাবে রিস্টোর হয়েছে!', 'success');
+        } catch (err) {
+          showToast('সঠিক JSON ব্যাকআপ ফাইল নির্বাচন করুন।', 'error');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Helper: English to Bangla Digits
+    function toBanglaDigit(num) {
+      const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return String(num).replace(/\d/g, d => bn[d]);
+    }
+
+    // Custom Toast Notification (No alert() used)
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+
+      const styles =
+        type === 'success' ? 'bg-navy-900 text-white border-emerald-500' :
+        type === 'error' ? 'bg-rose-900 text-white border-rose-500' :
+        type === 'warning' ? 'bg-amber-900 text-white border-amber-400' :
+        'bg-slate-800 text-white border-slate-600';
+
+      const icon =
+        type === 'success' ? '<i class="fa-solid fa-circle-check text-emerald-400"></i>' :
+        type === 'error' ? '<i class="fa-solid fa-circle-exclamation text-rose-400"></i>' :
+        '<i class="fa-solid fa-circle-info text-sky-400"></i>';
+
+      toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl border-l-4 text-sm font-medium transition-all transform translate-y-0 ${styles}`;
+      toast.innerHTML = `${icon} <span>${message}</span>`;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
